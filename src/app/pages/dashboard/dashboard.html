@@ -1,1 +1,34 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <div class="dashboard-card">
+    <div class="top-bar">
+      <div>
+        <h1>Panel Principal</h1>
+        <p>Gestiona clientes, productos y pedidos de tu sistema comercial.</p>
+      </div>
+    </div>
+
+    <div class="menu-grid">
+      <a routerLink="/clientes" class="menu-card">
+        <div class="icon">👤</div>
+        <h3>Clientes</h3>
+        <p>Administra la información de tus clientes.</p>
+      </a>
+
+      <a routerLink="/productos" class="menu-card">
+        <div class="icon">📦</div>
+        <h3>Productos</h3>
+        <p>Consulta, agrega y organiza tus productos.</p>
+      </a>
+
+      <a routerLink="/pedidos" class="menu-card">
+        <div class="icon">🛒</div>
+        <h3>Pedidos</h3>
+        <p>Controla pedidos y su estado actual.</p>
+      </a>
+    </div>
+
+    <div class="actions">
+      <button class="logout" (click)="logout()">Cerrar sesión</button>
+    </div>
+  </div>
+</div>

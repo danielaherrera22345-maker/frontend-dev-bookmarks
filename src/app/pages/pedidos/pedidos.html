@@ -1,1 +1,51 @@
-<p>pedidos works!</p>
+<div class="page-container">
+  <div class="page-card">
+    <div class="header">
+      <div>
+        <a routerLink="/dashboard" class="back-link">← Volver al panel</a>
+        <h1>Pedidos</h1>
+        <p>Gestiona los pedidos registrados en el sistema.</p>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <h2>Agregar pedido</h2>
+
+      <div class="form-grid">
+        <input [(ngModel)]="nuevo.id" type="number" placeholder="ID del pedido" />
+        <input [(ngModel)]="nuevo.cliente_id" type="number" placeholder="ID del cliente" />
+        <input [(ngModel)]="productosTexto" type="text" placeholder="IDs de productos. Ej: 1,2,3" class="full-width" />
+        <input [(ngModel)]="nuevo.total" type="number" placeholder="Total del pedido" />
+        <input [(ngModel)]="nuevo.estado" type="text" placeholder="Estado del pedido" />
+      </div>
+
+      <button class="primary-btn" (click)="agregar()">Agregar pedido</button>
+    </div>
+
+    <div class="list-section">
+      <h2>Lista de pedidos</h2>
+
+      <div class="empty" *ngIf="pedidos.length === 0">
+        No hay pedidos registrados.
+      </div>
+
+      <div class="pedido-grid">
+        <div class="pedido-card" *ngFor="let pedido of pedidos; let i = index">
+          <div class="pedido-info">
+            <div class="pedido-icon">🛒</div>
+
+            <div class="details">
+              <h3>Pedido #{{ pedido.id }}</h3>
+              <p><strong>Cliente ID:</strong> {{ pedido.cliente_id }}</p>
+              <p><strong>Productos:</strong> {{ pedido.productos_ids.join(', ') }}</p>
+              <p><strong>Total:</strong> ${{ pedido.total }}</p>
+              <p><strong>Estado:</strong> {{ pedido.estado }}</p>
+            </div>
+          </div>
+
+          <button class="delete-btn" (click)="eliminar(i)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

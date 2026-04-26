@@ -1,1 +1,50 @@
-<p>productos works!</p>
+<div class="page-container">
+  <div class="page-card">
+    <div class="header">
+      <div>
+        <a routerLink="/dashboard" class="back-link">← Volver al panel</a>
+        <h1>Productos</h1>
+        <p>Administra el catálogo de productos de tu sistema comercial.</p>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <h2>Agregar producto</h2>
+
+      <div class="form-grid">
+        <input [(ngModel)]="nuevo.id" type="number" placeholder="ID" />
+        <input [(ngModel)]="nuevo.nombre" type="text" placeholder="Nombre del producto" />
+        <input [(ngModel)]="nuevo.descripcion" type="text" placeholder="Descripción" class="full-width" />
+        <input [(ngModel)]="nuevo.precio" type="number" placeholder="Precio" />
+        <input [(ngModel)]="nuevo.stock" type="number" placeholder="Stock disponible" />
+      </div>
+
+      <button class="primary-btn" (click)="agregar()">Agregar producto</button>
+    </div>
+
+    <div class="list-section">
+      <h2>Lista de productos</h2>
+
+      <div class="empty" *ngIf="productos.length === 0">
+        No hay productos registrados.
+      </div>
+
+      <div class="product-grid">
+        <div class="product-card" *ngFor="let producto of productos; let i = index">
+          <div class="product-info">
+            <div class="product-icon">📦</div>
+
+            <div class="details">
+              <h3>{{ producto.nombre }}</h3>
+              <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+              <p><strong>Precio:</strong> ${{ producto.precio }}</p>
+              <p><strong>Stock:</strong> {{ producto.stock }}</p>
+            </div>
+          </div>
+
+          <button class="delete-btn" (click)="eliminar(i)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
