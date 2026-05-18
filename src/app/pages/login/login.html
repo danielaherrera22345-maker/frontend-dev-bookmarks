@@ -1,22 +1,28 @@
-<div class="login-container">
-  <div class="card">
-    <h2>Login Comercio</h2>
-    <p>Ingresa tus credenciales</p>
+<div class="login-page">
+  <div class="login-card">
+
+    <h1>TechStore Login</h1>
+    <p>Ingresa tus credenciales para continuar</p>
 
     <input
       type="text"
-      [(ngModel)]="username"
       placeholder="Usuario"
-    />
+      [(ngModel)]="username"
+    >
 
     <input
       type="password"
-      [(ngModel)]="password"
       placeholder="Contraseña"
-    />
+      [(ngModel)]="password"
+    >
 
-    <button (click)="ingresar()">Ingresar</button>
+    <button type="button" (click)="iniciarSesion()">
+      Ingresar
+    </button>
 
-    <p class="error" *ngIf="mensaje">{{ mensaje }}</p>
+    <span class="error" *ngIf="error">
+      {{ error }}
+    </span>
+
   </div>
 </div>
