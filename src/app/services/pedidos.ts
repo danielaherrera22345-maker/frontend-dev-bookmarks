@@ -19,35 +19,25 @@ export class PedidosService {
 
   constructor(private http: HttpClient) {}
 
-  private getHeaders() {
+  private headers() {
     const token = localStorage.getItem('token');
 
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
+    return {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
   }
 
   obtener(): Observable<Pedido[]> {
-    return this.http.get<Pedido[]>(this.apiUrl, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<Pedido[]>(this.apiUrl, this.headers());
   }
 
-agregar(pedido: Pedido): Observable<any> {
-  const pedidoEnviar = {
-    cliente_id: Number(pedido.cliente_id),
-    productos_ids: pedido.productos_ids,
-    total: Number(pedido.total),
-    estado: pedido.estado
-  };
+  agregar(pedido: Pedido): Observable<any> {
+    return this.http.post(this.apiUrl, pedido, this.headers());
+  }
 
-  return this.http.post(this.apiUrl, pedidoEnviar, {
-    headers: this.getHeaders()
-  });
-}
   eliminar(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.delete(`${this.apiUrl}/${id}`, this.headers());
   }
 }
