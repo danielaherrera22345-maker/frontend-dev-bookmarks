@@ -7,7 +7,7 @@ import { Observable, tap, map } from 'rxjs';
 })
 export class AuthService {
 
-  private apiUrl = 'http://127.0.0.1:8000';
+  private apiUrl = 'https://api-techstore.onrender.com';
 
   constructor(private http: HttpClient) {}
 

@@ -14,7 +14,7 @@ export interface Producto {
   providedIn: 'root'
 })
 export class ProductosService {
-  private apiUrl = 'http://127.0.0.1:8000/productos';
+  private apiUrl = 'https://api-techstore.onrender.com';
 
   constructor(private http: HttpClient) {}
 
