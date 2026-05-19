@@ -33,12 +33,18 @@ export class PedidosService {
     });
   }
 
-  agregar(pedido: Pedido): Observable<any> {
-    return this.http.post(this.apiUrl, pedido, {
-      headers: this.getHeaders()
-    });
-  }
+agregar(pedido: Pedido): Observable<any> {
+  const pedidoEnviar = {
+    cliente_id: Number(pedido.cliente_id),
+    productos_ids: pedido.productos_ids,
+    total: Number(pedido.total),
+    estado: pedido.estado
+  };
 
+  return this.http.post(this.apiUrl, pedidoEnviar, {
+    headers: this.getHeaders()
+  });
+}
   eliminar(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`, {
       headers: this.getHeaders()

@@ -58,12 +58,12 @@ agregar() {
     .filter(id => !isNaN(id) && id > 0);
 
   const pedidoEnviar: Pedido = {
-    id: 0,
-    cliente_id: Number(this.nuevo.cliente_id),
-    productos_ids: productosIds,
-    total: Number(this.nuevo.total),
-    estado: this.nuevo.estado
-  };
+  id: 0,
+  cliente_id: Number(this.nuevo.cliente_id),
+  productos_ids: productosIds,
+  total: Number(this.nuevo.total),
+  estado: this.nuevo.estado
+};
 
   this.pedidosService.agregar(pedidoEnviar).subscribe({
     next: () => {
