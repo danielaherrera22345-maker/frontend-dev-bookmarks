@@ -75,3 +75,13 @@
   font-weight: 700;
   text-align: center;
 }
+
+.error {
+  margin-top: 18px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #ffe1e1;
+  color: #b00020;
+  font-weight: 700;
+  text-align: center;
+}

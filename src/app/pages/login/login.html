@@ -1,28 +1,38 @@
 <div class="login-page">
+
   <div class="login-card">
 
     <h1>TechStore Login</h1>
-    <p>Ingresa tus credenciales para continuar</p>
+
+    <p>Ingrese sus credenciales</p>
 
     <input
       type="text"
       placeholder="Usuario"
       [(ngModel)]="username"
-    >
+      (keyup.enter)="ingresar()"
+    />
 
     <input
       type="password"
       placeholder="Contraseña"
       [(ngModel)]="password"
+      (keyup.enter)="ingresar()"
+    />
+
+    <button
+      (click)="ingresar()"
+      [disabled]="cargando"
     >
 
-    <button type="button" (click)="iniciarSesion()">
-      Ingresar
+      {{ cargando ? 'Ingresando...' : 'Ingresar' }}
+
     </button>
 
-    <span class="error" *ngIf="error">
-      {{ error }}
-    </span>
+    <p class="error" *ngIf="mensaje">
+      {{ mensaje }}
+    </p>
 
   </div>
+
 </div>

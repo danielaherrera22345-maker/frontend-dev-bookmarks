@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../services/auth.services';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
@@ -12,25 +12,61 @@ import { AuthService } from '../../services/auth.services';
   styleUrl: './login.css'
 })
 export class LoginComponent {
+
   username = '';
   password = '';
-  error = '';
+
+  mensaje = '';
+  cargando = false;
 
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
 
-  iniciarSesion() {
+  ingresar(): void {
+
+    this.mensaje = '';
+
+    if (!this.username.trim()) {
+      this.mensaje = 'Ingrese el usuario';
+      return;
+    }
+
+    if (!this.password.trim()) {
+      this.mensaje = 'Ingrese la contraseña';
+      return;
+    }
+
+    this.cargando = true;
+
     this.authService.login(this.username, this.password).subscribe({
+
       next: (ok) => {
+
+        this.cargando = false;
+
         if (ok) {
           this.router.navigate(['/dashboard']);
+        } else {
+          this.mensaje = 'Usuario o contraseña incorrectos';
         }
+
       },
-      error: () => {
-        this.error = 'Usuario o contraseña incorrectos';
+
+      error: (error) => {
+
+        this.cargando = false;
+
+        console.error(error);
+
+        this.mensaje =
+          'No se pudo conectar con el servidor o las credenciales son incorrectas';
+
       }
+
     });
+
   }
+
 }
