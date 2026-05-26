@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ClientesService } from '../../services/clientes';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { ClientesService, Cliente } from '../../services/clientes';
 
 @Component({
   selector: 'app-clientes',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './clientes.html',
-  styleUrl: './clientes.css'
+  styleUrls: ['./clientes.css']
 })
-export class ClientesComponent implements OnInit {
-  clientes: Cliente[] = [];
+export class ClientesComponent {
 
-  nuevo: Cliente = {
+  clientes:any[] = [];
+
+  nuevoCliente = {
     id: 0,
     nombre: '',
     correo: '',
@@ -22,33 +22,71 @@ export class ClientesComponent implements OnInit {
     direccion: ''
   };
 
-  constructor(private clientesService: ClientesService) {}
+  error = '';
+  cargando = false;
+  mensaje = '';
 
-  ngOnInit(): void {
-    this.cargar();
-  }
+  constructor(private clientesService: ClientesService){}
 
-  cargar() {
-    this.clientesService.obtener().subscribe({
-      next: (data) => this.clientes = data,
-      error: () => alert('Error al cargar clientes')
-    });
-  }
+  agregarCliente() {
 
-  agregar() {
-    this.clientesService.agregar(this.nuevo).subscribe({
+    this.error = '';
+    this.mensaje = '';
+
+    if(!this.nuevoCliente.nombre.trim()){
+      this.error = 'Ingrese el nombre.';
+      return;
+    }
+
+    if(!this.nuevoCliente.correo.trim()){
+      this.error = 'Ingrese el correo.';
+      return;
+    }
+
+    if(!this.nuevoCliente.telefono.trim()){
+      this.error = 'Ingrese el teléfono.';
+      return;
+    }
+
+    if(!this.nuevoCliente.direccion.trim()){
+      this.error = 'Ingrese la dirección.';
+      return;
+    }
+
+    this.cargando = true;
+
+    this.clientesService.agregar(this.nuevoCliente).subscribe({
+
       next: () => {
-        this.nuevo = { id: 0, nombre: '', correo: '', telefono: '', direccion: '' };
-        this.cargar();
+
+        this.cargando = false;
+
+        this.mensaje = 'Cliente agregado correctamente.';
+
+        this.nuevoCliente = {
+          id:0,
+          nombre:'',
+          correo:'',
+          telefono:'',
+          direccion:''
+        };
+
       },
-      error: () => alert('Error al agregar cliente')
+
+      error: (err) => {
+
+        this.cargando = false;
+
+        if(err.status === 0){
+          this.error = 'No se pudo conectar con el servidor.';
+        }
+        else if(err.status === 400){
+          this.error = 'Datos inválidos.';
+        }
+        else{
+          this.error = 'Error al agregar cliente.';
+        }
+      }
     });
   }
-
-  eliminar(id: number) {
-  this.clientesService.eliminar(id).subscribe({
-    next: () => this.cargar(),
-    error: () => alert('Error al eliminar cliente')
-  });
-}
 }

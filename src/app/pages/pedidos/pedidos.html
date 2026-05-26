@@ -19,7 +19,17 @@
         <input [(ngModel)]="nuevo.estado" type="text" placeholder="Estado del pedido" />
       </div>
 
-      <button class="primary-btn" (click)="agregar()">Agregar pedido</button>
+      <div *ngIf="error" class="error">
+        {{ error }}
+      </div>
+
+      <div *ngIf="mensaje" class="success">
+        {{ mensaje }}
+      </div>
+
+      <button class="primary-btn" (click)="agregar()" [disabled]="cargando">
+        {{ cargando ? 'Guardando...' : 'Agregar pedido' }}
+      </button>
     </div>
 
     <div class="list-section">
@@ -30,7 +40,7 @@
       </div>
 
       <div class="pedido-grid">
-        <div class="pedido-card" *ngFor="let pedido of pedidos; let i = index">
+        <div class="pedido-card" *ngFor="let pedido of pedidos">
           <div class="pedido-info">
             <div class="pedido-icon">🛒</div>
 
@@ -43,7 +53,9 @@
             </div>
           </div>
 
-          <button class="delete-btn" (click)="eliminar(i)">Eliminar</button>
+          <button class="delete-btn" (click)="eliminar(pedido.id)">
+            Eliminar
+          </button>
         </div>
       </div>
     </div>
