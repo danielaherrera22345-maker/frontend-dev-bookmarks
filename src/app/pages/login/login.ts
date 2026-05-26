@@ -26,12 +26,16 @@ export class LoginComponent {
 
   ingresar(): void {
 
-    this.mensaje = '';
+  alert('CLICK FUNCIONA');
 
-    if (!this.username.trim()) {
-      this.mensaje = 'Ingrese el usuario';
-      return;
-    }
+  this.mensaje = '';
+
+  if (!this.username.trim()) {
+    this.mensaje = 'Ingrese el usuario';
+    return;
+  }
+
+
 
     if (!this.password.trim()) {
       this.mensaje = 'Ingrese la contraseña';
