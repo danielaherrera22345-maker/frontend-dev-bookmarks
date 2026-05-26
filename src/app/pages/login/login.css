@@ -68,6 +68,10 @@
 .error {
   display: block;
   margin-top: 16px;
-  color: #d80032;
-  font-weight: 600;
+  padding: 12px;
+  border-radius: 12px;
+  background: #ffe1e1;
+  color: #b00020;
+  font-weight: 700;
+  text-align: center;
 }
